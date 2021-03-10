@@ -1,30 +1,23 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <HelloWorld msg="Welcome to Your Vue.js App"/>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
 
-#nav {
-  padding: 30px;
-}
+import { defineAsyncComponent } from 'vue';
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+const component = 'HelloWorld.vue';
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+export default {
+  name: 'App',
+  components: {
+    // The following will produce an Error
+    HelloWorld : defineAsyncComponent(() => import(`./components/${component}`)),
+    // The following works
+    // HelloWorld: defineAsyncComponent(() => import('./components/HelloWorld.vue')),
+    // The following also works
+    /* eslint-disable prefer-template */
+    // HelloWorld: defineAsyncComponent(() => import('./components/' + component)),
+  },
+};
+</script>
